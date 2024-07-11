@@ -9,9 +9,12 @@ from tensorflow.keras import layers
 import keras_tuner
 
 def build_model(hp):
+
+    # Choose hyperparameters from specified ranges below and train for 5 epochs to compare with other combinations
     model = keras.Sequential()
     model.add(keras.Input(shape=train_features_shape))
 
+    # Conv layers and pooling layers
     for i in range(hp.Int("num_conv_layers", 1, 8)):
         model.add(layers.Conv2D(
             filters=hp.Int(f"filters_{i}", min_value=32, max_value=128, step=32),
@@ -45,11 +48,14 @@ def build_model(hp):
 
 
 def tune_hyperparameters(train_generator, validation_generator):
+    # Global used to pass image shape to build_model function without breaking its hyperparameter tuning functionality
     global train_features_shape
     train_features_shape = validation_generator.image_shape
 
     model = build_model(keras_tuner.HyperParameters())
     print(model.summary())
+
+    # Bayesian Optimization to efficiently select from hyperparameter combinations
     tuner = keras_tuner.BayesianOptimization(
         hypermodel=build_model,
         objective="loss",
@@ -67,7 +73,7 @@ def tune_hyperparameters(train_generator, validation_generator):
     print(tuner.results_summary())
 
     best_hps = tuner.get_best_hyperparameters(1)
-    # Build the model with the best hp.
+    # Build and train the model with the best hyperparameters.
     model = build_model(best_hps[0])
     model.fit(train_generator, epochs=3, validation_data=validation_generator)
     print(model.summary())

@@ -1,12 +1,12 @@
 import pandas as pd
 from keras_tuner_script import tune_hyperparameters
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
-from tensorflow.keras.applications import VGG16, ResNet50, InceptionV3
+from tensorflow.keras.applications import VGG16, InceptionV3
 
 from functions import *
 
-CHOICES = ["Inception V3", "VGG16", "tuned_model"]
-MODEL_CHOICE = CHOICES[1]  # Select one of three architectures tested. Architecture of choice: Inception V3
+CHOICES = ["Inception_V3", "VGG16", "tuned_model"]
+MODEL_CHOICE = CHOICES[1]  # Select one of three architectures tested. Architecture of choice: VGG16
 print(f"Model Choice: {MODEL_CHOICE}")
 
 if __name__ == "__main__":
@@ -114,6 +114,6 @@ if __name__ == "__main__":
     print(f"Accuracy Score: {accuracy}%")
 
     # Plot confusion matrix, save preds to csv, and save model
-    plot_cm(df["Classification"], df["Actual"], "Inception V3")
-    df.to_csv("submission.csv", index=False)
+    plot_cm(df["Classification"], df["Actual"], MODEL_CHOICE)
+    df.to_csv("generated_preds.csv", index=False)
     model.save("model.h5")
