@@ -1,11 +1,6 @@
 # Skin Cancer Challenge Problem
 
-## Kerollos Lowandy
-
-**Repository: skin-cancer-challenge-problem**
-
-## GitHub Link
-[https://github.com/Kerollosl/skin-cancer-challenge-problem](https://github.com/Kerollosl/skin-cancer-challenge-problem)
+A VGG16 binary classifier for skin cancer detection. Runs end-to-end preprocessing, training, and confusion-matrix evaluation, then a secondary `threshold_shift.py` step to re-plot results under a tuned prediction threshold (default 0.45).
 
 ### Chosen Model
 - VGG16
