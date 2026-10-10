@@ -7,3 +7,12 @@ class EvaluationTests(unittest.TestCase):
         self.assertEqual(metrics([0,0],[1,1])["accuracy"],0)
     def test_invalid(self):
         with self.assertRaises(ValueError):metrics([1],[float("nan")])
+
+
+def test_fractional_labels_rejected():
+ import pytest
+ with pytest.raises(ValueError):metrics([.5],[.2])
+
+def test_confidence_intervals_are_bounded():
+ result=metrics([0,1],[.1,.9])
+ assert 0 <= result['accuracy_ci95'][0] < result['accuracy_ci95'][1] <= 1
