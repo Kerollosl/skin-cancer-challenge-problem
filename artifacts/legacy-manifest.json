@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "source_commit": "bf6952d5d108c5d463429a48bc8154e7ee32fca2",
+  "artifacts": [
+    {
+      "path": "Inception_V3/inception_model.h5",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "310318b52dd481aa939b28ce91b18eb6c8489989",
+      "size": 90941400,
+      "url": "https://api.github.com/repos/Kerollosl/skin-cancer-challenge-problem/git/blobs/310318b52dd481aa939b28ce91b18eb6c8489989"
+    },
+    {
+      "path": "VGG16/vgg_model.h5",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3eb374540f0e925506a4cdf9078829bcc5c05721",
+      "size": 62083136,
+      "url": "https://api.github.com/repos/Kerollosl/skin-cancer-challenge-problem/git/blobs/3eb374540f0e925506a4cdf9078829bcc5c05721"
+    }
+  ],
+  "status": "Historical artifacts retained. Training/evaluation and redistribution rights are not independently verified."
+}

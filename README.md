@@ -27,3 +27,8 @@ A VGG16 binary classifier for skin cancer detection. Runs end-to-end preprocessi
 - `functions.py` - Used for organizational purposes to keep function definitions outside of main.
 - `keras_tuner_script.py` - Used to define keras tuning algorithm.
 - `threshold_shift.py` - Shifts the binary prediction threshold from 0.5 to a new desired threshold of choice and then replots a new confusion matrix based on that threshold. This requires `main.py` to run first in order for it to reference the generated CSV file.
+
+
+## Cleanup behavior and validation limits
+
+Run `python main.py --help` for training. Train/validation/test generators share RGB dimensions and architecture-specific preprocessing. Validation selects models and thresholds; test data is evaluated separately. Binary accuracy, sensitivity and specificity use actual counts with explicit missing-class behavior. This is research code, not a diagnostic system.

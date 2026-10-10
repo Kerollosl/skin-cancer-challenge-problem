@@ -15,7 +15,7 @@ def build_model(hp):
     model.add(keras.Input(shape=train_features_shape))
 
     # Conv layers and pooling layers
-    for i in range(hp.Int("num_conv_layers", 1, 8)):
+    for i in range(hp.Int("num_conv_layers", 1, 4)):
         model.add(layers.Conv2D(
             filters=hp.Int(f"filters_{i}", min_value=32, max_value=128, step=32),
             kernel_size=hp.Choice(f"kernel_size_{i}", [3, 5]),
@@ -58,7 +58,7 @@ def tune_hyperparameters(train_generator, validation_generator):
     # Bayesian Optimization to efficiently select from hyperparameter combinations
     tuner = keras_tuner.BayesianOptimization(
         hypermodel=build_model,
-        objective="loss",
+        objective="val_loss",
         max_trials=3,
         executions_per_trial=1,
         overwrite=True,
@@ -66,7 +66,7 @@ def tune_hyperparameters(train_generator, validation_generator):
 
     print(tuner.search_space_summary())
 
-    tuner.search(validation_generator, epochs=5)
+    tuner.search(train_generator, validation_data=validation_generator, epochs=5)
     models = tuner.get_best_models(num_models=1)
     best_model = models[0]
     print(best_model.summary())
@@ -78,3 +78,4 @@ def tune_hyperparameters(train_generator, validation_generator):
     model.fit(train_generator, epochs=3, validation_data=validation_generator)
     print(model.summary())
     return model
+
